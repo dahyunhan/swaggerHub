@@ -1,0 +1,583 @@
+openapi: 3.0.0
+info:
+  title: recode
+  description: recode
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/DOLLAE7020_1/recode1/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: QNA
+  description: Qna service
+- name: Study
+  description: Study service
+- name: Study Member
+  description: manage member
+- name: User
+  description: manage User
+paths:
+  /api/v1/qna:
+    get:
+      tags:
+      - QNA
+      summary: Qna 목록 조회
+      responses:
+        "200":
+          description: qna 목록조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200"
+    post:
+      tags:
+      - QNA
+      summary: Qna 생성
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QnaDto"
+      responses:
+        "200":
+          description: qna 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_1"
+  /api/v1/qna/{qna_id}:
+    get:
+      tags:
+      - QNA
+      summary: Qna 단일 조회
+      parameters:
+      - name: qna_id
+        in: path
+        description: The ID of the Q&A
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: qna 단일조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_2"
+    put:
+      tags:
+      - QNA
+      summary: Qna 수정
+      parameters:
+      - name: qna_id
+        in: path
+        description: The ID of the Q&A
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QnaDto"
+      responses:
+        "200":
+          description: qna 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_3"
+    delete:
+      tags:
+      - QNA
+      summary: Qna 삭제
+      parameters:
+      - name: qna_id
+        in: path
+        description: The ID of the Q&A
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: qna 삭제 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_4"
+  /api/v1/qna-reply/{qna_id}:
+    post:
+      tags:
+      - QNA
+      summary: Qna 댓글 생성
+      parameters:
+      - name: qna_id
+        in: path
+        description: The ID of the Q&A
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QnaReplyDto"
+      responses:
+        "200":
+          description: qna 댓글 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_5"
+    delete:
+      tags:
+      - QNA
+      summary: Qna 댓글 삭제
+      parameters:
+      - name: qna_id
+        in: path
+        description: The ID of the Q&A
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: qna 댓글 삭제 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_6"
+  /api/v1/study:
+    post:
+      tags:
+      - Study
+      summary: 스터디 생성
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudyRoomDto"
+      responses:
+        "200":
+          description: 스터디 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_7"
+  /api/v1/study/{study_id}:
+    get:
+      tags:
+      - Study
+      summary: 스터디 소개 조회
+      parameters:
+      - name: study_id
+        in: path
+        description: The ID of the study
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: 스터디 소개 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_8"
+    post:
+      tags:
+      - Study
+      summary: 스터디 신청
+      parameters:
+      - name: study_id
+        in: path
+        description: The ID of the study
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudyRoomDto"
+      responses:
+        "200":
+          description: 스터디 신청 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_9"
+    delete:
+      tags:
+      - Study
+      summary: 스터디 삭제 (관리자)
+      parameters:
+      - name: study_id
+        in: path
+        description: The ID of the study
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: 스터디 삭제 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_6"
+  /api/v1/study-member/{study_id}/{user_id}:
+    put:
+      tags:
+      - Study Member
+      summary: 스터디 멤버 권한 변경 (관리자)
+      parameters:
+      - name: study_id
+        in: path
+        description: The ID of the study
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudyMemberDto"
+      responses:
+        "200":
+          description: 스터디 멤버 권한 변경 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_10"
+    post:
+      tags:
+      - Study Member
+      summary: 스터디 멤버 승인
+      parameters:
+      - name: study_id
+        in: path
+        description: The ID of the study
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/study_id_user_id_body"
+      responses:
+        "200":
+          description: 멤버 승인 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_11"
+    delete:
+      tags:
+      - Study Member
+      summary: 스터디 멤버 삭제 (관리자)
+      parameters:
+      - name: study_id
+        in: path
+        description: The ID of the study
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: 스터디 멤버 삭제 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_12"
+  /api/v1/users/{id}:
+    delete:
+      tags:
+      - User
+      summary: 사용자 계정 삭제 (관리자)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the User
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: 사용자 계정 삭제 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_13"
+components:
+  schemas:
+    QnaDto:
+      type: object
+      properties:
+        qna_id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    QnaReplyDto:
+      type: object
+      properties:
+        qna_id:
+          type: integer
+          format: int64
+        comment:
+          type: string
+    StudyRoomDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        study_name:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+        current_num:
+          type: integer
+        max_num:
+          type: integer
+          format: int64
+        user_id:
+          $ref: "#/components/schemas/User/properties/id"
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        fullname:
+          type: string
+    StudyMemberDto:
+      type: object
+      properties:
+        study_id:
+          $ref: "#/components/schemas/StudyRoomDto/properties/id"
+        user_id:
+          $ref: "#/components/schemas/User/properties/id"
+        status:
+          type: integer
+    inline_response_200:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: Qna 목록조회 성공
+        data:
+          $ref: "#/components/schemas/QnaDto"
+    inline_response_200_1:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: qna 생성 성공
+    inline_response_200_2:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 단일조회 성공
+        data:
+          $ref: "#/components/schemas/QnaDto"
+    inline_response_200_3:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: qna 수정 성공
+    inline_response_200_4:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: qna 삭제 성공
+        data: {}
+    inline_response_200_5:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: qna 댓글 생성 성공
+    inline_response_200_6:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: qna 댓글 삭제 성공
+        data: {}
+    inline_response_200_7:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 스터디 생성 성공
+    inline_response_200_8:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 스터디 소개 조회 성공
+        data:
+          $ref: "#/components/schemas/StudyRoomDto"
+    inline_response_200_9:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 스터디 신청 성공
+        data:
+          $ref: "#/components/schemas/inline_response_200_9_data"
+    inline_response_200_10:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 스터디 멤버 권한 변경 성공
+    study_id_user_id_body:
+      properties:
+        study_id:
+          $ref: "#/components/schemas/StudyRoomDto/properties/id"
+        id:
+          $ref: "#/components/schemas/User/properties/id"
+        username:
+          $ref: "#/components/schemas/User/properties/username"
+    inline_response_200_11:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 멤버 승인 성공
+    inline_response_200_12:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 스터디 멤버 삭제 성공
+        data: {}
+    inline_response_200_13:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1
+        msg:
+          type: string
+          example: 사용자 계정 삭제 성공
+        data: {}
+    inline_response_200_9_data:
+      properties:
+        id:
+          $ref: "#/components/schemas/User/properties/id"
+        username:
+          $ref: "#/components/schemas/User/properties/username"
